@@ -9,14 +9,16 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
-    redirect: "/index" // 重定向:重新指向其它path,会改变网址
+    redirect: "/index" // 重定向:登陆后直接跳转主页
   },
   {
+    //登录页路由配置
     path: "/login",
     name: "login",
     component: () => import("../views/LoginView.vue")
   },
   {
+    //主页路由配置
     path: "/index",
     name: "index",
     component: () => import("../views/IndexView.vue")
