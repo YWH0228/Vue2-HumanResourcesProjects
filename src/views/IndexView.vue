@@ -5,7 +5,7 @@
       style="
         height: 100vh;
         background-color: #4677fa;
-        background-image: url('@/assets/imgs/leftbackgroundImage.png') !important;
+        background-image: url('@/assets/imgs/left.png');
         background-size: 100% 100%;
       "
     ></el-aside>
