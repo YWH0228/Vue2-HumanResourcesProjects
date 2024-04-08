@@ -8,15 +8,18 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView
+    component: HomeView,
+    redirect: "/index" // 重定向:重新指向其它path,会改变网址
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue")
+    path: "/login",
+    name: "login",
+    component: () => import("../views/LoginView.vue")
+  },
+  {
+    path: "/index",
+    name: "index",
+    component: () => import("../views/IndexView.vue")
   }
 ]
 
@@ -24,4 +27,18 @@ const router = new VueRouter({
   routes
 })
 
+//路由守卫，进行路由鉴权
+router.beforeEach((to, from, next) => {
+  if (sessionStorage.getItem("token") || to.path == "/login") {
+    next()
+  } else {
+    next("/login")
+  }
+})
+
+//配置router ，防止出现跳转同意路由地址出现页面报错现象
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err)
+}
 export default router
