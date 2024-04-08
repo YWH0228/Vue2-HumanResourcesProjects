@@ -8,7 +8,9 @@
         background-image: url('@/assets/imgs/left.png');
         background-size: 100% 100%;
       "
-    ></el-aside>
+    >
+      <img src="" alt="" />
+    </el-aside>
     <el-container>
       <el-header>Header</el-header>
       <el-main>Main</el-main>
