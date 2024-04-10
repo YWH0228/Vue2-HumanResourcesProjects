@@ -1,6 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import HomeView from "../views/HomeView.vue"
+import { GetCookie } from "../utils/auth"
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,54 @@ const routes = [
     //主页路由配置
     path: "/index",
     name: "index",
-    component: () => import("../views/IndexView.vue")
+    component: () => import("../views/IndexView.vue"),
+    children: [
+      {
+        path: "/approval",
+        name: "approval",
+        component: () => import("../views/demo-compent/ApprovalView.vue")
+      },
+      {
+        path: "/attendance",
+        name: "attendance",
+        component: () => import("../views/demo-compent/AttendanceView.vue")
+      },
+      {
+        path: "/company",
+        name: "company",
+        component: () => import("../views/demo-compent/CompanySettings.vue")
+      },
+      {
+        path: "/indexs",
+        name: "indexs",
+        component: () => import("../views/demo-compent/IndexsView.vue")
+      },
+      {
+        path: "/organization",
+        name: "organization",
+        component: () => import("../views/demo-compent/OrganizationView.vue")
+      },
+      {
+        path: "/permission",
+        name: "permission",
+        component: () => import("../views/demo-compent/PermissionSettings.vue")
+      },
+      {
+        path: "/social",
+        name: "social",
+        component: () => import("../views/demo-compent/SocialSecurity.vue")
+      },
+      {
+        path: "/staff",
+        name: "staff",
+        component: () => import("../views/demo-compent/StaffView.vue")
+      },
+      {
+        path: "/wages",
+        name: "wages",
+        component: () => import("../views/demo-compent/WagesView.vue")
+      }
+    ]
   }
 ]
 
@@ -31,7 +79,7 @@ const router = new VueRouter({
 
 //路由守卫，进行路由鉴权
 router.beforeEach((to, from, next) => {
-  if (sessionStorage.getItem("token") || to.path == "/login") {
+  if (GetCookie() || to.path == "/login") {
     next()
   } else {
     next("/login")

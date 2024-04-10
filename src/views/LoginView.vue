@@ -34,6 +34,7 @@
 
 <script>
 //引入封装后的登录api
+import { SetCookie } from "../utils/auth"
 import { loginApi } from "../api/api"
 export default {
   data() {
@@ -56,11 +57,11 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           loginApi(this.ruleForm).then((res) => {
-            // console.log(res)
+            console.log(res)
             //根据后端返回状态码判断是否登陆成功
-            if (res.data.code == 10000) {
-              // 登陆成功后将token存入本地，此处为方便本地销毁，使用sessionStorage来将token数据存入本地
-              sessionStorage.setItem("token", res.data.data)
+            if (res.code == 10000) {
+              // 登陆成功后将token存入本地，使用localStorage来将token数据存入本地
+              SetCookie(res.data)
               //登陆成功后，调用el-ui的请提示方法，进行轻提示
               this.$message.success(res.data.message)
               //调用Vue所附带的$router Api 进行成功后的网页跳转
@@ -82,7 +83,7 @@ export default {
 .about {
   width: 100vw;
   height: 100vh;
-  background-image: url("@/assets/imgs/login.jpg");
+  background-image: url("../../public/imgs/login.jpg");
   background-size: 100% 100%;
   overflow: hidden;
   // 登录页中心公司署名和登录参数表单以及按钮样式所在
