@@ -63,12 +63,12 @@ export default {
               // 登陆成功后将token存入本地，使用localStorage来将token数据存入本地
               SetCookie(res.data)
               //登陆成功后，调用el-ui的请提示方法，进行轻提示
-              this.$message.success(res.data.message)
+              this.$message.success(res.message)
               //调用Vue所附带的$router Api 进行成功后的网页跳转
               this.$router.push("/index")
             } else {
               //若登录失败，调用el-ui将后端返回的message数据请提示给用户，展示失败原因
-              this.$message.error(res.data.message)
+              this.$message.error(res.message)
             }
           })
         }
