@@ -11,3 +11,8 @@ export const loginApi = (params) => {
 export const getUserInfoApi = (params) => {
   return axios.post("/sys/profile", params)
 }
+
+//获取组织结构列表
+export const getOrganizationListApi = (params) => {
+  return axios.get("/company/department", { params })
+}

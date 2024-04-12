@@ -49,7 +49,7 @@
       <div class="work-area-right">
         <div class="application">
           <div class="application-title"><span>流程申请</span></div>
-          <div class="application-button">
+          <div class="application-button" style="overflow-y: auto !important">
             <el-button>加班离职</el-button>
             <el-button>请假调休</el-button>
             <el-button>审批列表</el-button>
@@ -68,7 +68,7 @@
         </div>
         <div class="help" style="margin-top: 20px; height: 188px !important">
           <div class="help-title"><span>帮助链接</span></div>
-          <div class="help-button">
+          <div class="help-button" style="justify-content: space-around">
             <div class="help-item">
               <img src="../../../public/imgs/point.png" alt="" />
               <div class="help-name">入门指南</div>

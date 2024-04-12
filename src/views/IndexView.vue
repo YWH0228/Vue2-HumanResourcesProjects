@@ -39,8 +39,10 @@
         <div class="right">
           <!-- 局部搜索输入框所在，默认为隐藏，采用v-if指令，绑定serchFlag状态码实现dom的显示隐藏 -->
           <el-input v-model="inputSearch" placeholder="请输入内容" v-if="inputFlag"></el-input>
-          <!-- 全屏功能按钮所在，功能尚未实现！！！！！！ -->
+          <!-- 搜索功能按钮所在，功能尚未实现！！！！！！ -->
           <i class="el-icon-search" style="font-size: 24px; margin-right: 10px"></i>
+          <!-- 全屏功能按钮所在 -->
+          <i class="el-icon-monitor" style="font-size: 24px; margin-right: 10px" @click="enterFullscreen"></i>
           <!-- 中英文切换功能设置，功能尚未实现！！！！！！ -->
           <img src=".././../public/imgs/topE-C .png" alt="" style="width: 30px; height: 30px" />
           <!-- 换肤功能按钮所在，功能尚未实现！！！！！！ -->
@@ -51,6 +53,7 @@
             <div class="el-dropdown-link topColor" style="margin-right: 10px"><i class="el-icon-arrow-down"></i></div>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>换肤</el-dropdown-item>
+              <el-dropdown-item> </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <!-- 管理员以及头像跳转首页和退出登录功能所在，但功能尚未开发实现！！！！！ -->
@@ -87,7 +90,8 @@ export default {
       inputFlag: false,
       // 搜索框双向数据绑定属性值
       inputSearch: "",
-      isCollapse: false
+      isCollapse: false,
+      color: "#ffffff" // 初始颜色值
     }
   },
   methods: {
@@ -95,6 +99,21 @@ export default {
       RemoveCookie("token")
       this.$router.replace("/login")
       this.$message.success("退出登录成功")
+    },
+    enterFullscreen() {
+      let elem = document.documentElement
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen()
+      } else if (elem.mozRequestFullScreen) {
+        // Firefox
+        elem.mozRequestFullScreen()
+      } else if (elem.webkitRequestFullscreen) {
+        // Chrome, Safari 和 Opera
+        elem.webkitRequestFullscreen()
+      } else if (elem.msRequestFullscreen) {
+        // IE/Edge
+        elem.msRequestFullscreen()
+      }
     }
   },
   created() {
@@ -134,13 +153,13 @@ export default {
 .el-logo-active {
   text-align: center;
   width: 100%;
-  height: 30px;
-  line-height: 50px;
+  height: 65px;
+  line-height: 65px;
   box-sizing: border-box;
   padding: 5px 1px;
   img {
     width: 55px;
-    height: 100%;
+    height: 20px;
   }
 }
 // 主页顶部header样式设置
@@ -205,5 +224,6 @@ export default {
 }
 .el-main {
   background-color: #edeff2;
+  height: calc(100vh - 60px);
 }
 </style>
