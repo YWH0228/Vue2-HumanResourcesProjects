@@ -1,0 +1,22 @@
+
+/* 暗色主题 */
+[data-theme="dark"] {
+  --color-primary: #34495e; /* 黑夜模式的主题色*/
+  --color-background: #2c3e50; /* 黑夜模式的背景色*/
+}
+
+
+/* 默认亮色主题 */
+:root{
+	--color-primary: #409EFF; /* 白天模式的主题色*/
+  --color-background: #ffffff; /* 白天模式的背景色*/
+}
+
+body {
+  background-color: var(--color-background);
+}
+
+/* Element UI 组件也应使用这些变量 */
+.el-button {
+  color: var(--color-primary);
+}

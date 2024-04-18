@@ -32,15 +32,13 @@ instance.interceptors.request.use(
 /**封装响应拦截器 */
 instance.interceptors.response.use(
   (response) => {
-    // 在这封装401过期,token失效
-    console.log(response, "71")
-    if (response.data.code === 10002 && response.status == 401) {
+    // console.log(response)
+    if (response.data.code === 10002 && response.status == 200) {
       // 返回登录页面重新登录,并且清楚当前token信息,需要清楚保存到本地的个人信息
       /**
-       * TODO: 需要清楚保存到本地的个人信息
+       * TODO: 需要清除保存到本地的个人信息
        */
-
-      router.replace({
+      router.push({
         path: "/login"
       })
       RemoveCookie()
@@ -49,15 +47,15 @@ instance.interceptors.response.use(
     return response.data
   },
   (error) => {
+    // console.log(error)
     let tilte = ""
-    let message = error.message
-    console.log(error, "71")
-    // 因为状态码返回有两种情况,一种是正常的code码,401,200,302
-    // 还有一种是非正常的状态码,如" 没有或者返回英文字母
-    // 获取返回报错的状态码:  error.code
-    // 获取返回的报错信息: error.message
-    // 在这封装状态码
+    let message = error.message //console.log(error,"71")//因为状态码返回有两种情况,一种是正常的code码,401,200,302//还有一种是非正常的状态码,如"没有或者返回英文字母//获取返回报错的状态码:error.code//获取返回的报错信息:error.message//在这封装状态码
     if (error.code) {
+      if (error.response.data.code == 10002 && error.response.status == 401) {
+        //清除token
+        RemoveCookie() //跳转到登录页
+        window.location.href = "/login"
+      }
       switch (error.code) {
         case 401:
           tilte = "资源未授权"
@@ -97,6 +95,7 @@ instance.interceptors.response.use(
           break
         default:
           tilte = error.response.status
+          Loading.service().close()
           return MessageBox.alert(message, tilte, {
             type: "warning"
           })
@@ -108,5 +107,5 @@ instance.interceptors.response.use(
     }
   }
 )
-
+// 导出
 export default instance
